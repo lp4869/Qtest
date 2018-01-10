@@ -1,0 +1,40 @@
+﻿{
+    "data": [
+        {
+            "name": "จันทร์สิริ ตันไพบูลย์กุล",
+            "birthdate": "/Date(200768400000)/",
+            "address": "Thailand",
+            "phone": "081234568",
+            "email": null,
+            "position": "Employee",
+            "workingday": "/Date(1510678800000)/"
+        },
+        {
+            "name": "ยุพา พัชรวิภาส",
+            "birthdate": "/Date(216666000000)/",
+            "address": "Thailand",
+            "phone": "081234568",
+            "email": null,
+            "position": "Employee",
+            "workingday": "/Date(1510678800000)/"
+        },
+        {
+            "name": "Phacharaporn Arunpoon",
+            "birthdate": "/Date(651690000000)/",
+            "address": "Bangkok",
+            "phone": "0967261133",
+            "email": "A.Phacharaporn@hotmail.com",
+            "position": "Admin",
+            "workingday": "/Date(1508000400000)/"
+        },
+        {
+            "name": "Pongpat Chaypan",
+            "birthdate": "/Date(588272400000)/",
+            "address": "Bangkok",
+            "phone": "0967261133",
+            "email": "c,pongpat@hotmail.com",
+            "position": "Admin",
+            "workingday": "/Date(1508000400000)/"
+        }
+    ]
+}

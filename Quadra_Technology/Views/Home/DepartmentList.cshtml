@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Quadra_Technology.Service.Models.DepartmentModel>
+
+<div class="btn-group col-md-5">
+    <button id="depList" type="button" style="width:100%" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> TEST<span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu col-md-5" style="width:95%">
+        @foreach (var item in Model)
+        {
+            <li><a href="#">@item.DepartmentName</a></li>
+        }
+    </ul>
+</div>
+

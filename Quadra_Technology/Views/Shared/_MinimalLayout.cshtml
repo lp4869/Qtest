@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - data</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+</head>
+<body>
+    @RenderBody()
+    <script src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+    </script>
+    <script type="text/javascript"
+            src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#depList').html($('#department').val() + '<span class="caret"></span>')
+        })
+        $(".form_datetime").datetimepicker({
+            format: "dd/MM/yyyy"
+        });
+        $('.dropdown-menu a').click(function () {
+            $('#department').val($(this).html())
+            $('#depList').html($(this).html() + '<span class="caret"></span>')
+
+            // alert(aaa);
+        });
+        $("#staffEven").click(function () {
+            //console.log($('#targetStaff').serialize());
+            var dataForm = getFormData($('#targetStaff'));
+            //console.log(JSON.stringify(dataForm))
+            $.ajax({
+                type: "POST",
+                url: "/Home/SaveStaff",
+                data: JSON.stringify(dataForm),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response.responseText);        
+                },
+                error: function (response) {
+                    console.log('Error :'+response.responseText);
+                    //alert("Error : " + response);
+                }
+            });
+
+            //$("#targetStaff").submit();
+        });
+        function getFormData($form) {
+            var unindexed_array = $form.serializeArray();
+            var indexed_array = {};
+
+            $.map(unindexed_array, function (n, i) {
+                indexed_array[n['name']] = n['value'];
+            });
+
+            return indexed_array;
+        }
+    </script>
+</body>
+</html>

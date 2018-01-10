@@ -1,0 +1,19 @@
+﻿<ul class="nav nav-list" style="top: 0px;">
+    <li class="">
+        <a  id="0" href="#">
+            <i class="menu-icon fa fa-tachometer"></i>
+            <span class="menu-text"> พนักงานทั้งหมด </span>
+        </a>
+    </li>
+    @{
+        foreach (var item in @ViewBag.menuList)
+        {
+            <li class="">
+                <a id="@item.DepartmentID" href="#">
+                    <i class="menu-icon fa @item.DepartmentIcon"></i>
+                    <span class="menu-text"> @item.DepartmentName </span>
+                </a>
+            </li>
+        }
+    }
+</ul><!-- /.nav-list -->

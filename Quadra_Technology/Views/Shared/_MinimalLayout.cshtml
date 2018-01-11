@@ -8,9 +8,27 @@
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen"
           href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+    <style>
+        .fade {
+            opacity: 0;
+            -webkit-transition: opacity 0.15s linear;
+            -moz-transition: opacity 0.15s linear;
+            -o-transition: opacity 0.15s linear;
+            transition: opacity 0.15s linear;
+        }
+
+            .fade.in {
+                opacity: 1;
+            }
+    </style>
 </head>
 <body>
-    @RenderBody()
+    <div class="container">
+        @RenderBody()
+        <div id="messagestatus">
+
+        </div>
+    </div>
     <script src="~/assets/js/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script type="text/javascript"
@@ -35,25 +53,40 @@
         });
         $("#staffEven").click(function () {
             //console.log($('#targetStaff').serialize());
-            var dataForm = getFormData($('#targetStaff'));
+            let formName = $('#targetStaff');
+            var dataForm = getFormData(formName);
             //console.log(JSON.stringify(dataForm))
             $.ajax({
                 type: "POST",
                 url: "/Home/SaveStaff",
                 data: JSON.stringify(dataForm),
                 contentType: "application/json; charset=utf-8",
-                dataType: "json",
                 success: function (response) {
-                    console.log(response.responseText);        
+                    console.log(response);
+                    alertBox(response, 'success')
+                    formName[0].reset();
                 },
                 error: function (response) {
-                    console.log('Error :'+response.responseText);
-                    //alert("Error : " + response);
+                    alertBox(response, 'error')
+                    console.log('Error :' + response);
                 }
             });
 
             //$("#targetStaff").submit();
         });
+        function alertBox(response, status) {
+            if (status == 'success') {
+                HtmlAlert = '<div class="alert alert-success" ><strong>Success!</strong>' + response + '</div>';
+            }
+            else {
+                HtmlAlert = '<div class=""alert alert-danger" ><strong>Error!</strong>' + response + '</div>';
+            }
+            $('#messagestatus').html(HtmlAlert).fadeIn("slow");
+            var timeout = setInterval(function () {
+                $('#messagestatus').html('');
+            }, 3000);
+
+        }
         function getFormData($form) {
             var unindexed_array = $form.serializeArray();
             var indexed_array = {};
@@ -64,6 +97,10 @@
 
             return indexed_array;
         }
+        $('#closePopup').click(
+            function () {
+                window.close()   // Closes the new window
+            });
     </script>
 </body>
 </html>

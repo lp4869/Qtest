@@ -62,6 +62,7 @@ namespace Quadra_Technology.Controllers
             {
                 Status = service.StaffUpdate(staff);
             }
+            
             return Content(Status);
         }
         [HttpPost]

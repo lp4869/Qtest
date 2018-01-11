@@ -13,17 +13,25 @@ namespace Quadra_Technology.Service
         public List<DepartmentModel> LoadDepartment()
         {
             List<DepartmentModel> departmentList;
-            using (Quadra_TechnologyEntities db = new Quadra_TechnologyEntities())
+            try
             {
-                departmentList = db.Department
-                    .Select(s => new DepartmentModel
-                    {
-                        DepartmentID = s.DepartmentID,
-                        DepartmentName = s.DepartmentName,
-                        Description = s.Description,
-                        DepartmentIcon = s.DepartmentIcon,
-                        CreatedOn = s.CreatedOn
-                    }).OrderBy(o => o.CreatedOn).ToList();
+
+                using (Quadra_TechnologyEntities db = new Quadra_TechnologyEntities())
+                {
+                    departmentList = db.Department
+                        .Select(s => new DepartmentModel
+                        {
+                            DepartmentID = s.DepartmentID,
+                            DepartmentName = s.DepartmentName,
+                            Description = s.Description,
+                            DepartmentIcon = s.DepartmentIcon,
+                            CreatedOn = s.CreatedOn
+                        }).OrderBy(o => o.CreatedOn).ToList();
+                    db.Dispose();
+                }
+            }
+            catch (Exception ex) {
+                departmentList = null;
             }
             return departmentList;
         }
@@ -55,6 +63,7 @@ namespace Quadra_Technology.Service
                         guid = s.staff.StaffId
 
                     }).ToList();
+                db.Dispose();
             }
 
             return new dataClass
@@ -85,6 +94,7 @@ namespace Quadra_Technology.Service
                         createdOn = s.staff.CreatedOn,
                         guid = s.staff.StaffId
                     }).FirstOrDefault();
+                db.Dispose();
             }
             return staffmodel;
         }
@@ -99,8 +109,10 @@ namespace Quadra_Technology.Service
                     Status = db.Staff.Where(w => w.StaffId.Equals(id)).Select(s => new { fullname = s.StaffName + " " + s.StaffLastName }).FirstOrDefault().ToString();
                     db.Entry(staffDestination).State = System.Data.Entity.EntityState.Deleted;
                     db.SaveChanges();
+                    db.Dispose();
                 }
                 Status = "Deleted " + Status + " success...";
+                
             }
             catch (Exception ex)
             {
@@ -123,8 +135,10 @@ namespace Quadra_Technology.Service
                     staffDestination.DepartmentID = db.Department.Where(w => w.DepartmentName == staff.department).Select(s => s.DepartmentID).FirstOrDefault();
                     db.Entry(staffDestination).State = System.Data.Entity.EntityState.Added;
                     db.SaveChanges();
+                    db.Dispose();
                 }
                 Status = "Create profile " + Status + " success...";
+                
             }
             catch (Exception ex)
             {
@@ -145,8 +159,10 @@ namespace Quadra_Technology.Service
                     staffDestination.DepartmentID = db.Department.Where(w => w.DepartmentName == staff.department).Select(s => s.DepartmentID).FirstOrDefault();
                     db.Entry(staffDestination).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
+                    db.Dispose();
                 }
                 Status = "Updated profile "+ Status + " success...";
+                
             }
             catch (Exception ex)
             {

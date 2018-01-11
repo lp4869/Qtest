@@ -6,7 +6,7 @@ $('.nav-list>li>a').click(
     function () {
         // var table = $(tablename).DataTable();
         let id = $(this).attr('id');
-        $('#department_tempid').val(id);        
+        $('#department_tempid').val(id);
         callApi(id)
     });
 function callApi(id) {
@@ -25,8 +25,10 @@ function callApi(id) {
             { "data": "name" },
             {
                 "data": "birthdate", render: function (data, type, row) {
-                    return convertDate(data)
-
+                    if (data != null) {
+                        return convertDate(data)
+                    }
+                    return '-'
                 }
 
             },
@@ -36,8 +38,10 @@ function callApi(id) {
             { "data": "position" },
             {
                 "data": "workingday", render: function (data, type, row) {
-                    return convertDate(data)
-
+                    if (data != null) {
+                        return convertDate(data)
+                    }
+                    return '-'
                 }
             },
             {
@@ -51,6 +55,7 @@ function callApi(id) {
 }
 //<i class="fa fa-plus-circle" aria-hidden="true"></i>
 function convertDate(data) {
+
     data = data.substring(6, (data.length - 2));
     var d = new Date(parseInt(data)),
         month = '' + (d.getMonth() + 1),
@@ -61,13 +66,18 @@ function convertDate(data) {
 
     return [year, month, day].join('-');
 }
-function addStaff()
-{
-    window.open('home/Addstaff/', '_blank').focus();
+function addStaff() {
+    let url = 'home/addstaff/';
+    var strWindowFeatures = "width=1024,height=800,top=30,left=400";
+    window.open(url, "popupWindow", strWindowFeatures);
 }
 function Editdata(id) {
-    window.open('home/EditForm/' + id, '_blank').focus();
+    //window.open('home/EditForm/' + id, '_blank').focus();
+    let url = 'home/addstaff/' + id;
+    var strWindowFeatures = "width=1024,height=800,top=30,left=400";
+    window.open(url, "popupWindow", strWindowFeatures);
 }
+
 function Deldata(id) {
 
     if (confirm('ต้องการลบข้อมูล ??')) {
@@ -93,5 +103,5 @@ function Deldata(id) {
     } else {
         return;
     }
-   
+
 }

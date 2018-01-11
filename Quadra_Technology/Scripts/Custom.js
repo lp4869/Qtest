@@ -73,7 +73,7 @@ function addStaff() {
 }
 function Editdata(id) {
     //window.open('home/EditForm/' + id, '_blank').focus();
-    let url = 'home/addstaff/' + id;
+    let url = 'home/EditForm/' + id;
     var strWindowFeatures = "width=1024,height=800,top=30,left=400";
     window.open(url, "popupWindow", strWindowFeatures);
 }

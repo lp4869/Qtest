@@ -3,6 +3,11 @@
     callApi(0);
     
 });
+function openCode()
+{
+    let url = 'https://github.com/lp4869/Qtest';    
+    window.open(url, "_blank");
+}
 var tablename = '#example';
 $('.nav-list>li').click(function () {
     $('.nav-list>li').removeClass('active');

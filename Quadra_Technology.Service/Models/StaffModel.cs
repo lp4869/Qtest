@@ -42,6 +42,7 @@ namespace Quadra_Technology.Service.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? workingday { get; set; }
         public DateTime? createdOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
         public String workingdayString
         {
             get
@@ -53,6 +54,7 @@ namespace Quadra_Technology.Service.Models
                 return String.Empty;
             }
         }
+        
         public Guid guid { get; set; }
     }
 }

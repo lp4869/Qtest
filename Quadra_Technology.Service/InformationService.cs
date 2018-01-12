@@ -60,6 +60,8 @@ namespace Quadra_Technology.Service
                         phone = s.staff.StaffTel,
                         position = s.staff.Position,
                         workingday = s.staff.Begin_Working_day.Value,
+                        createdOn = s.staff.CreatedOn,
+                        ModifiedOn = s.staff.ModifyOn,
                         guid = s.staff.StaffId
 
                     }).ToList();

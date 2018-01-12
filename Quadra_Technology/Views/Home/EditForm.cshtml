@@ -47,7 +47,7 @@
                 @Html.LabelFor(model => model.birthdate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-5 col-sm-12 input-append date form_datetime">
                     @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    <span class="add-on"><i class="icon-th"></i></span>
+                    <span style="height: 25px;" class="add-on"><i class="icon-th"></i></span>
                     @Html.ValidationMessageFor(model => model.birthdate, "", new { @class = "text-danger" })
 
                 </div>
@@ -89,7 +89,7 @@
                 @Html.LabelFor(model => model.workingday, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-5 col-sm-12 input-append date form_datetime">
                     @Html.EditorFor(model => model.workingday, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    <span class="add-on"><i class="icon-th"></i></span>
+                    <span style="height: 25px;" class="add-on"><i class="icon-th"></i></span>
                     @Html.ValidationMessageFor(model => model.workingday, "", new { @class = "text-danger" })
                 </div>
             </div>

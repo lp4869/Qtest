@@ -1,18 +1,35 @@
 ﻿$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
     callApi(0);
+    
 });
 var tablename = '#example';
+$('.nav-list>li').click(function () {
+    $('.nav-list>li').removeClass('active');
+    $(this).addClass('active');
+});
+
 $('.nav-list>li>a').click(
     function () {
-        // var table = $(tablename).DataTable();
         let id = $(this).attr('id');
-        $('#department_tempid').val(id);
-        callApi(id)
+        let checknum = parseInt(id)
+        if (Number.isInteger(checknum)) {
+            $('#main-table').removeClass('hidden');
+            $('#main-chart').addClass('hidden');
+            $('#department_tempid').val(id);
+            callApi(id)
+        }
+        else {
+            $('#main-table').addClass('hidden');
+            $('#main-chart').removeClass('hidden');
+            
+
+            callApi(-1)
+        }
     });
 function callApi(id) {
     $(tablename).DataTable().destroy();
     var _baseUrl = window.location.host;
-    //console.log(new Date(648147600000));
     var table = $(tablename).DataTable({
         "ajax": ({
             dataType: "json",
@@ -45,15 +62,30 @@ function callApi(id) {
                 }
             },
             {
+                "data": "createdOn", render: function (data, type, row) {
+                    if (data != null) {
+                        return convertDate(data)
+                    }
+                    return '-'
+                }
+            },
+            {
+                "data": "ModifiedOn", render: function (data, type, row) {
+                    if (data != null) {
+                        return convertDate(data)
+                    }
+                    return '-'
+                }
+            },
+            {
                 "data": "guid", render: function (data, type, row) {
-                    return '<button onclick="addStaff()" class="addstaff fa fa-plus-circle btn btn-success" > </button>  <button id=' + data + ' onclick="Editdata($(this).attr(\'id\'))" class="edit fa fa-pencil btn btn-primary" aria-hidden="true"></button>  <button  id=' + data + ' class="del fa fa-trash-o btn btn-danger" aria-hidden="true" onclick="Deldata($(this).attr(\'id\'))"></button>'
+                    return '<button id=' + data + ' data-toggle="tooltip" data-placement="top" title="Edit" onclick="Editdata($(this).attr(\'id\'))" class="edit fa fa-pencil btn btn-primary" aria-hidden="true"></button>  <button data-toggle="tooltip" data-placement="top" title="Delete"  id=' + data + ' class="del fa fa-trash-o btn btn-danger" aria-hidden="true" onclick="Deldata($(this).attr(\'id\'))"></button>'
                 }
             }
         ]
     });
     return table;
 }
-//<i class="fa fa-plus-circle" aria-hidden="true"></i>
 function convertDate(data) {
 
     data = data.substring(6, (data.length - 2));
